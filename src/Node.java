@@ -3,6 +3,7 @@ class Node {
 	private int data;
 	private Node next;
 	private Node prev;
+	private boolean saved = false;
 
 	public Node(int data) {
 		this.data = data;
@@ -15,7 +16,11 @@ class Node {
 	}
 
 	public void setData(int data) {
-		history.addNode(this.data);
+		if (saved == false) {
+			history.addNode(this.data);
+			saved = true;
+		}
+		history.addNode(data);
 		this.data = data;
 	}
 

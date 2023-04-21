@@ -99,23 +99,27 @@ public class LinkedList {
 	}
 
 	public void nodeHistory(int num) {
-		if (num < 1 || num > length) {
-			System.out.println("Invalid Position!");
-			return;
-		}
-
-		Node cur = get(num);
-
-		System.out.println("\nCurrent value of node " + num + " is " + cur.getData() + ".");
-
-		cur = cur.history.getHead();
-		if (cur == null) {
-			System.out.println("This node has no previous values.");
-		} else {
-			System.out.print("Previous value of node " + num + " are ");
-			while (cur != null) {
-				System.out.print(cur.getData() + (cur.getNext() != null ? ", " : ".\n"));
-				cur = cur.getNext();
+		if(head == null || tail == null) {
+			System.out.println("Operation cannot be performed as the list is empty.");
+		}else {
+			if (num < 1 || num > length) {
+				System.out.println("Invalid Position!");
+				return;
+			}
+			
+			Node cur = get(num);
+			
+			System.out.println("\nCurrent value of node " + num + " is " + cur.getData() + ".");
+			
+			cur = cur.history.getHead();
+			if (cur == null) {
+				System.out.println("This node has no previous values.");
+			} else {
+				System.out.print("Previous value of node " + num + " are ");
+				while (cur != null) {
+					System.out.print(cur.getData() + (cur.getNext() != null ? ", " : ".\n"));
+					cur = cur.getNext();
+				}
 			}
 		}
 	}

@@ -76,9 +76,13 @@ public class Main {
 
 	private static void deleteNode() throws NumberFormatException, IOException {
 		try {
-			System.out.print("Enter node position to delete: ");
-			int number = Integer.parseInt(reader.readLine());
-			ll.deleteNode(number);
+			if(ll.getHead() == null || ll.getTail() == null) {
+				System.out.println("Operation cannot be performed as the list is empty.");
+			}else {
+				System.out.print("Enter node position to delete: ");
+				int number = Integer.parseInt(reader.readLine());
+				ll.deleteNode(number);
+			}
 		} catch (NumberFormatException e) {
 			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
 		}
@@ -92,17 +96,21 @@ public class Main {
 		int position, number;
 
 		try {
-			System.out.print("Enter node position: ");
-			position = Integer.parseInt(reader.readLine());
-			if (position < 1 || position > ll.length) {
-				System.out.println("Invalid Position!");
-				return;
+			if(ll.getHead() == null || ll.getTail() == null) {
+				System.out.println("Operation cannot be performed as the list is empty.");
+			}else {
+				System.out.print("Enter node position: ");
+				position = Integer.parseInt(reader.readLine());
+				if (position < 1 || position > ll.length) {
+					System.out.println("Invalid Position!");
+					return;
+				}
+				System.out.println("Current value of node " + position + " is " + ll.get(position).getData() + ".\n");
+				System.out.print("Enter new value for node " + position + ": ");
+				number = Integer.parseInt(reader.readLine());
+				ll.changeValue(position, number);
+				System.out.println("Node value has been modified successfully!");
 			}
-			System.out.println("Current value of node " + position + " is " + ll.get(position).getData() + ".\n");
-			System.out.print("Enter new value for node " + position + ": ");
-			number = Integer.parseInt(reader.readLine());
-			ll.changeValue(position, number);
-			System.out.println("Node value has been modified successfully!");
 		} catch (NumberFormatException e) {
 			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
 		}
@@ -111,9 +119,13 @@ public class Main {
 
 	private static void nodeHistory() throws NumberFormatException, IOException {
 		try {
-			System.out.print("Enter node position: ");
-			int number = Integer.parseInt(reader.readLine());
-			ll.nodeHistory(number);
+			if(ll.getHead() == null || ll.getTail() == null) {
+				System.out.println("Operation cannot be performed as the list is empty.");
+			}else {
+				System.out.print("Enter node position: ");
+				int number = Integer.parseInt(reader.readLine());
+				ll.nodeHistory(number);
+			}
 		} catch (NumberFormatException e) {
 			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
 		}

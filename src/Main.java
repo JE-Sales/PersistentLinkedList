@@ -89,13 +89,20 @@ public class Main {
 	}
 
 	private static void changeValue() throws NumberFormatException, IOException {
+		int position, number;
+
 		try {
 			System.out.print("Enter node position: ");
-			int number = Integer.parseInt(reader.readLine());
-			ll.changeValue(number);
+			position = Integer.parseInt(reader.readLine());
+			System.out.println("Current value of node " + position + " is " + ll.get(position).getData() + ".\n");
+			System.out.print("Enter new value for node " + position + ": ");
+			number = Integer.parseInt(reader.readLine());
+			ll.changeValue(position, number);
+			System.out.println("Node value has been modified successfully!");
 		} catch (NumberFormatException e) {
 			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
 		}
+
 	}
 
 	private static void nodeHistory() throws NumberFormatException, IOException {
@@ -106,6 +113,7 @@ public class Main {
 		} catch (NumberFormatException e) {
 			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
 		}
+
 	}
 
 	private static void listHistory() {

@@ -153,13 +153,15 @@ public class LinkedList {
 
 	public void display() {
 		Node cur = head;
-
-		System.out.println("Displaying values of the existing nodes values...");
-		while (cur != null) {
-			System.out.print(cur.getData() + (cur.getNext() != null ? ", " : "\n"));
-			cur = cur.getNext();
+		if(head == null || tail == null) {
+			System.out.println("Operation cannot be performed as the list is empty.");
+		}else {
+			System.out.println("Displaying values of the existing nodes values...");
+			while (cur != null) {
+				System.out.print(cur.getData() + (cur.getNext() != null ? ", " : "\n"));
+				cur = cur.getNext();
+			}
 		}
-
 	}
 
 	public Node get(int position) {

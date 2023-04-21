@@ -187,4 +187,7 @@ public class LinkedList {
 	public Node getHead() {
 		return head;
 	}
+	public Node getTail() {
+		return tail;
+	}
 }

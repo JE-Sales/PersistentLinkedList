@@ -32,40 +32,36 @@ public class LinkedList {
 	}
 
 	public void deleteNode(int num) {
-		if(head == null || tail == null) {
-			System.out.println("Operation cannot be performed as the list is empty.");
-		}else {
-			if (num < 1 || num > length) {
-				System.out.println("Invalid Position");
-				return;
-			}
-			
-			LinkedList pastll;
-			Node cur = get(num);
-			
-			if (cur == head && cur == tail) {
-				head = null;
-				tail = null;
-			} else if (cur == tail) {
-				tail.getPrev().setNext(null);
-				tail = tail.getPrev();
-			} else if (cur == head) {
-				head = head.getNext();
-				head.setPrev(null);
-			} else if (cur.getPrev() != null && cur.getNext() != null) {
-				cur.getPrev().setNext(cur.getNext());
-				cur.getNext().setPrev(cur.getPrev());
-				setTail();
-			}
-			
-			length--;
-			
-			pastll = copyLinkedList();
-			pastll.deletedNode = cur;
-			histories.add(pastll);
-			
-			System.out.println("The node was successfully deleted!");
+		if (num < 1 || num > length) {
+			System.out.println("Invalid Position");
+			return;
 		}
+		
+		LinkedList pastll;
+		Node cur = get(num);
+		
+		if (cur == head && cur == tail) {
+			head = null;
+			tail = null;
+		} else if (cur == tail) {
+			tail.getPrev().setNext(null);
+			tail = tail.getPrev();
+		} else if (cur == head) {
+			head = head.getNext();
+			head.setPrev(null);
+		} else if (cur.getPrev() != null && cur.getNext() != null) {
+			cur.getPrev().setNext(cur.getNext());
+			cur.getNext().setPrev(cur.getPrev());
+			setTail();
+		}
+		
+		length--;
+		
+		pastll = copyLinkedList();
+		pastll.deletedNode = cur;
+		histories.add(pastll);
+		
+		System.out.println("The node was successfully deleted!");
 
 	}
 
@@ -99,27 +95,23 @@ public class LinkedList {
 	}
 
 	public void nodeHistory(int num) {
-		if(head == null || tail == null) {
-			System.out.println("Operation cannot be performed as the list is empty.");
-		}else {
-			if (num < 1 || num > length) {
-				System.out.println("Invalid Position!");
-				return;
-			}
-			
-			Node cur = get(num);
-			
-			System.out.println("\nCurrent value of node " + num + " is " + cur.getData() + ".");
-			
-			cur = cur.history.getHead();
-			if (cur == null) {
-				System.out.println("This node has no previous values.");
-			} else {
-				System.out.print("Previous value of node " + num + " are ");
-				while (cur != null) {
-					System.out.print(cur.getData() + (cur.getNext() != null ? ", " : ".\n"));
-					cur = cur.getNext();
-				}
+		if (num < 1 || num > length) {
+			System.out.println("Invalid Position!");
+			return;
+		}
+		
+		Node cur = get(num);
+		
+		System.out.println("\nCurrent value of node " + num + " is " + cur.getData() + ".");
+		
+		cur = cur.history.getHead();
+		if (cur == null) {
+			System.out.println("This node has no previous values.");
+		} else {
+			System.out.print("Previous value of node " + num + " are ");
+			while (cur != null) {
+				System.out.print(cur.getData() + (cur.getNext() != null ? ", " : ".\n"));
+				cur = cur.getNext();
 			}
 		}
 	}

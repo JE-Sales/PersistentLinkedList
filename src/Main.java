@@ -94,6 +94,10 @@ public class Main {
 		try {
 			System.out.print("Enter node position: ");
 			position = Integer.parseInt(reader.readLine());
+			if (position < 1 || position > ll.length) {
+				System.out.println("Invalid Position!");
+				return;
+			}
 			System.out.println("Current value of node " + position + " is " + ll.get(position).getData() + ".\n");
 			System.out.print("Enter new value for node " + position + ": ");
 			number = Integer.parseInt(reader.readLine());

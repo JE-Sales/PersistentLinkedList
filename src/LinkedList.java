@@ -38,35 +38,21 @@ public class LinkedList {
 		}
 
 		LinkedList pastll;
-		Node cur = head;
-		Node temp = null;
-
-		int nodeCnt = 1;
-
-		while (num != nodeCnt) {
-			cur = cur.getNext();
-			nodeCnt++;
-		}
+		Node cur = get(num);
 
 		if (cur == head && cur == tail) {
 			head = null;
 			tail = null;
 		} else if (cur == tail) {
 			tail.getPrev().setNext(null);
-			this.tail = tail.getPrev();
+			tail = tail.getPrev();
 		} else if (cur == head) {
 			head = head.getNext();
+			head.setPrev(null);
 		} else if (cur.getPrev() != null && cur.getNext() != null) {
 			cur.getPrev().setNext(cur.getNext());
 			cur.getNext().setPrev(cur.getPrev());
-
-			temp = head;
-
-			while (temp.getNext() != null) {
-				temp = temp.getNext();
-			}
-
-			tail = temp;
+			setTail();
 		}
 
 		length--;
@@ -96,32 +82,16 @@ public class LinkedList {
 
 	}
 
-	public void changeValue(int num) throws IOException {
-		if (num < 1 || num > length) {
+	public void changeValue(int position, int num) throws IOException {
+		if (position < 1 || position > length) {
 			System.out.println("Invalid Position");
 			return;
 		}
 
-		Node cur = head;
-		int nodeCnt = 1;
-
-		while (num != nodeCnt) {
-			cur = cur.getNext();
-			nodeCnt++;
-		}
-
-		System.out.println("Current value of node " + num + " is " + cur.getData() + ".");
-
-		try {
-			System.out.print("Enter new value for node " + num + ": ");
-			int data = Integer.parseInt(reader.readLine());
-			cur.setData(data);
-		} catch (NumberFormatException e) {
-			System.out.println("The only allowed input for CHOICE is an integer. Please try again.");
-		}
-
+		Node cur = get(position);
+		cur.setData(num);
 		histories.add(copyLinkedList());
-		System.out.println("Node value has been modified successfully!");
+
 	}
 
 	public void nodeHistory(int num) {
@@ -130,15 +100,9 @@ public class LinkedList {
 			return;
 		}
 
-		Node cur = head;
-		int nodeCnt = 1;
+		Node cur = get(num);
 
-		while (num != nodeCnt) {
-			cur = cur.getNext();
-			nodeCnt++;
-		}
-
-		System.out.println("\nCurrent value of node " + num + " is " + cur.getData());
+		System.out.println("\nCurrent value of node " + num + " is " + cur.getData() + ".");
 
 		cur = cur.history.getHead();
 		if (cur == null) {
@@ -146,7 +110,7 @@ public class LinkedList {
 		} else {
 			System.out.print("Previous value of node " + num + " are ");
 			while (cur != null) {
-				System.out.print(cur.getData() + (cur.getNext() != null ? ", " : "\n"));
+				System.out.print(cur.getData() + (cur.getNext() != null ? ", " : ".\n"));
 				cur = cur.getNext();
 			}
 		}
@@ -154,19 +118,6 @@ public class LinkedList {
 
 	public void listHistory() {
 		Boolean haveDeletedNodes = false;
-
-		System.out.println("States of the linkedlist: ");
-		for (int i = histories.getSize() - 1; i >= 0; i--) {
-			Node temp = histories.get(i).getHead();
-
-			System.out.print("State " + histories.get(i).version + ": ");
-			while (temp != null) {
-				System.out.print(temp.getData() + (temp.getNext() != null ? ", " : "\n"));
-				temp = temp.getNext();
-			}
-		}
-
-		System.out.println("-----------------------------------------------");
 
 		display();
 
@@ -176,7 +127,7 @@ public class LinkedList {
 
 			if (temp != null) {
 				System.out.print("State " + histories.get(i).version + " deleted node with the recent value of: "
-						+ temp.getData() + "\n");
+						+ temp.getData() + ".\n");
 				haveDeletedNodes = true;
 			}
 
@@ -184,6 +135,19 @@ public class LinkedList {
 
 		if (!haveDeletedNodes)
 			System.out.println("No nodes were deleted.");
+
+		System.out.println("-----------------------------------------------");
+
+		System.out.println("States of the linkedlist: ");
+		for (int i = histories.getSize() - 1; i >= 0; i--) {
+			Node temp = histories.get(i).getHead();
+
+			System.out.print("State " + histories.get(i).version + ": ");
+			while (temp != null) {
+				System.out.print(temp.getData() + (temp.getNext() != null ? ", " : ".\n"));
+				temp = temp.getNext();
+			}
+		}
 
 	}
 
@@ -196,6 +160,28 @@ public class LinkedList {
 			cur = cur.getNext();
 		}
 
+	}
+
+	public Node get(int position) {
+		Node cur = head;
+		int nodeCnt = 1;
+
+		while (position != nodeCnt) {
+			cur = cur.getNext();
+			nodeCnt++;
+		}
+
+		return cur;
+	}
+
+	public void setTail() {
+		Node temp = head;
+
+		while (temp.getNext() != null) {
+			temp = temp.getNext();
+		}
+
+		tail = temp;
 	}
 
 	public Node getHead() {

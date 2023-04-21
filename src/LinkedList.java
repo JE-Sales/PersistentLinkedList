@@ -141,7 +141,9 @@ public class LinkedList {
 		System.out.println("States of the linkedlist: ");
 		for (int i = histories.getSize() - 1; i >= 0; i--) {
 			Node temp = histories.get(i).getHead();
-
+			if(temp == null) {
+				System.out.println("List is empty");
+			}
 			System.out.print("State " + histories.get(i).version + ": ");
 			while (temp != null) {
 				System.out.print(temp.getData() + (temp.getNext() != null ? ", " : ".\n"));

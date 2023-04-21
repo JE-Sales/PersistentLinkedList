@@ -84,7 +84,7 @@ public class LinkedList {
 
 	public void changeValue(int position, int num) throws IOException {
 		if (position < 1 || position > length) {
-			System.out.println("Invalid Position");
+			System.out.println("Invalid Position!");
 			return;
 		}
 
@@ -96,7 +96,7 @@ public class LinkedList {
 
 	public void nodeHistory(int num) {
 		if (num < 1 || num > length) {
-			System.out.println("Invalid Position");
+			System.out.println("Invalid Position!");
 			return;
 		}
 
